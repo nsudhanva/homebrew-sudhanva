@@ -8,7 +8,7 @@ class Sudhanva < Formula
   depends_on "node"
 
   def install
-    bin.install "package/sudhanva.mjs" => "sudhanva"
+    bin.install "sudhanva.mjs" => "sudhanva"
   end
 
   test do
