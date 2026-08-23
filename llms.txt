@@ -5,7 +5,7 @@
 
 ## Install
 
-- npm command: `npm install --global @initiable/sudhanva`
+- npm command: `npm install --global sudhanva`
 - Command: `brew install nsudhanva/sudhanva/sudhanva`
 - Formula: https://github.com/nsudhanva/homebrew-sudhanva/blob/main/Formula/sudhanva.rb
 - CLI source: https://github.com/nsudhanva/homebrew-sudhanva/blob/main/cli/sudhanva.mjs
@@ -14,10 +14,10 @@
 ## Contracts
 
 - CLI documentation: https://sudhanva.me/developers/cli/
-- npm package: https://www.npmjs.com/package/@initiable/sudhanva
+- npm package: https://www.npmjs.com/package/sudhanva
 - API documentation: https://sudhanva.me/docs/
 - OpenAPI 3.1: https://sudhanva.me/openapi.json
-- Versioned archive: https://sudhanva.me/cli/initiable-sudhanva-0.1.3.tgz
+- Versioned archive: https://sudhanva.me/cli/sudhanva-0.1.4.tgz
 - License: MIT
 
 The CLI requires no credentials, performs only HTTPS GET requests, and emits

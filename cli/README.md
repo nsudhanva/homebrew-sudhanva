@@ -6,7 +6,7 @@ Dependency-free command-line client for the public, read-only
 Install from npm:
 
 ```sh
-npm install --global @initiable/sudhanva
+npm install --global sudhanva
 ```
 
 Or install through the official Homebrew tap:
