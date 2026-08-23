@@ -1,7 +1,9 @@
-# Homebrew tap for `sudhanva`
+# sudhanva Homebrew tap
 
-Official Homebrew distribution for the public, read-only
-[`sudhanva.me` command-line interface](https://sudhanva.me/developers/cli/).
+[![brew test-bot](https://github.com/nsudhanva/homebrew-sudhanva/actions/workflows/tests.yml/badge.svg)](https://github.com/nsudhanva/homebrew-sudhanva/actions/workflows/tests.yml)
+
+Official source and Homebrew distribution for `sudhanva`, a dependency-free,
+read-only CLI for the public [sudhanva.me API](https://sudhanva.me/docs/).
 
 ## Install
 
@@ -9,20 +11,47 @@ Official Homebrew distribution for the public, read-only
 brew install nsudhanva/sudhanva/sudhanva
 ```
 
-The formula installs the immutable versioned archive published by
-[`sudhanva.me`](https://sudhanva.me/cli/nsudhanva-sudhanva-0.1.0.tgz). The CLI
-requires Node.js, sends no credentials, performs only documented HTTPS `GET`
-requests, and prints structured JSON.
+Homebrew installs Node.js when needed. The CLI requires no account or API key,
+sends only documented HTTPS `GET` requests, and writes JSON to standard output.
 
 ## Use
 
 ```sh
 sudhanva profile
 sudhanva posts --limit 5 --tag kubernetes
+sudhanva post bare-metal-kubernetes-homelab-setup --compact
 sudhanva --version
 ```
 
-- [Developer documentation](https://sudhanva.me/docs/)
-- [OpenAPI 3.1 specification](https://sudhanva.me/openapi.json)
-- [MCP server](https://sudhanva.me/developers/mcp/)
+| Command              | Result                         |
+| -------------------- | ------------------------------ |
+| `sudhanva api`       | API discovery document         |
+| `sudhanva profile`   | Published professional profile |
+| `sudhanva posts`     | Published article metadata     |
+| `sudhanva post SLUG` | Metadata for one article       |
+| `sudhanva --help`    | Complete command reference     |
 
+Use `--compact` for single-line JSON. `posts` also accepts `--limit`, `--tag`,
+and `--cursor`. Run `sudhanva --help` for the complete syntax.
+
+## Maintain
+
+```sh
+node --test tests/*.test.mjs
+node scripts/verify-release.mjs
+brew style Formula/sudhanva.rb
+brew audit --strict --online nsudhanva/sudhanva/sudhanva
+brew test nsudhanva/sudhanva/sudhanva
+```
+
+The formula downloads a versioned archive and verifies its SHA-256 digest.
+CI uses Homebrew's official `brew test-bot` workflow on macOS and Linux.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the release checklist and
+[SECURITY.md](SECURITY.md) for private security reporting.
+
+## Links
+
+- [CLI documentation](https://sudhanva.me/developers/cli/)
+- [OpenAPI 3.1 contract](https://sudhanva.me/openapi.json)
+- [MCP integration](https://sudhanva.me/developers/mcp/)
+- [Versioned CLI archive](https://sudhanva.me/cli/nsudhanva-sudhanva-0.1.1.tgz)

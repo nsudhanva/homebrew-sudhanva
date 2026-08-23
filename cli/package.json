@@ -1,0 +1,35 @@
+{
+	"name": "@nsudhanva/sudhanva",
+	"version": "0.1.1",
+	"description": "Dependency-free CLI for the public sudhanva.me API.",
+	"type": "module",
+	"bin": {
+		"sudhanva": "sudhanva.mjs"
+	},
+	"files": [
+		"sudhanva.mjs",
+		"README.md"
+	],
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nsudhanva/homebrew-sudhanva.git",
+		"directory": "cli"
+	},
+	"homepage": "https://sudhanva.me/developers/cli/",
+	"bugs": {
+		"url": "https://github.com/nsudhanva/homebrew-sudhanva/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"keywords": [
+		"sudhanva",
+		"portfolio",
+		"machine-learning",
+		"api",
+		"cli"
+	]
+}
