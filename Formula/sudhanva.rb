@@ -2,7 +2,6 @@ class Sudhanva < Formula
   desc "CLI for the public sudhanva.me API"
   homepage "https://sudhanva.me/developers/cli/"
   url "https://sudhanva.me/cli/nsudhanva-sudhanva-0.1.1.tgz"
-  version "0.1.1"
   sha256 "fbd21bc67e8922fcc3e1ace6bfb11ff0add2b28616614bd52fc027e314c132a2"
 
   livecheck do
