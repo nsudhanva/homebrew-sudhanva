@@ -2,8 +2,8 @@
 
 [![brew test-bot](https://github.com/nsudhanva/homebrew-sudhanva/actions/workflows/tests.yml/badge.svg)](https://github.com/nsudhanva/homebrew-sudhanva/actions/workflows/tests.yml)
 
-Official source, npm package, and Homebrew distribution for `sudhanva`, a dependency-free,
-read-only CLI for the public [sudhanva.me API](https://sudhanva.me/docs/).
+Official source, npm package, and Homebrew distribution for `sudhanva`, a dependency-free
+CLI for the public [sudhanva.me API](https://sudhanva.me/docs/).
 
 ## Install
 
@@ -18,7 +18,8 @@ brew install nsudhanva/sudhanva/sudhanva
 ```
 
 Homebrew installs Node.js when needed. The CLI requires no account or API key,
-sends only documented HTTPS `GET` requests, and writes JSON to standard output.
+sends no credentials, and writes JSON to standard output. Retrieval commands use HTTPS
+`GET`; profile insights use the documented idempotent asynchronous API.
 
 ## Use
 
@@ -26,19 +27,22 @@ sends only documented HTTPS `GET` requests, and writes JSON to standard output.
 sudhanva profile
 sudhanva posts --limit 5 --tag kubernetes
 sudhanva post bare-metal-kubernetes-homelab-setup --compact
+sudhanva insight --audience recruiter --focus production-ml,kubernetes --wait
 sudhanva --version
 ```
 
-| Command              | Result                         |
-| -------------------- | ------------------------------ |
-| `sudhanva api`       | API discovery document         |
-| `sudhanva profile`   | Published professional profile |
-| `sudhanva posts`     | Published article metadata     |
-| `sudhanva post SLUG` | Metadata for one article       |
-| `sudhanva --help`    | Complete command reference     |
+| Command              | Result                                    |
+| -------------------- | ----------------------------------------- |
+| `sudhanva api`       | API discovery document                    |
+| `sudhanva profile`   | Published professional profile            |
+| `sudhanva posts`     | Published article metadata                |
+| `sudhanva post SLUG` | Metadata for one article                  |
+| `sudhanva insight …` | Create and optionally poll an insight job |
+| `sudhanva --help`    | Complete command reference                |
 
 Use `--compact` for single-line JSON. `posts` also accepts `--limit`, `--tag`,
-and `--cursor`. Run `sudhanva --help` for the complete syntax.
+and `--cursor`. `insight` requires `--audience`, accepts comma-separated `--focus`,
+and supports `--wait`. Run `sudhanva --help` for the complete syntax.
 
 ## Maintain
 
@@ -61,5 +65,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the release checklist and
 - [npm package](https://www.npmjs.com/package/sudhanva)
 - [OpenAPI 3.1 contract](https://sudhanva.me/openapi.json)
 - [MCP integration](https://sudhanva.me/developers/mcp/)
-- [Versioned CLI archive](https://sudhanva.me/cli/sudhanva-0.1.4.tgz)
+- [Profile-insights API](https://sudhanva.me/docs/profile-insights/)
+- [Versioned CLI archive](https://sudhanva.me/cli/sudhanva-0.1.5.tgz)
 - [MIT license](LICENSE)

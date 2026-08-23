@@ -1,7 +1,7 @@
 {
 	"name": "sudhanva",
-	"version": "0.1.4",
-	"description": "Dependency-free CLI for the public sudhanva.me API.",
+	"version": "0.1.5",
+	"description": "Dependency-free CLI for public sudhanva.me data and profile insights.",
 	"license": "MIT",
 	"type": "module",
 	"bin": {

@@ -1,6 +1,6 @@
 # sudhanva CLI source and Homebrew tap
 
-> Official source, npm package, and Homebrew distribution for the public, read-only
+> Official source, npm package, and Homebrew distribution for the public
 > sudhanva.me command-line interface.
 
 ## Install
@@ -17,8 +17,10 @@
 - npm package: https://www.npmjs.com/package/sudhanva
 - API documentation: https://sudhanva.me/docs/
 - OpenAPI 3.1: https://sudhanva.me/openapi.json
-- Versioned archive: https://sudhanva.me/cli/sudhanva-0.1.4.tgz
+- Profile-insights API: https://sudhanva.me/docs/profile-insights/
+- Versioned archive: https://sudhanva.me/cli/sudhanva-0.1.5.tgz
 - License: MIT
 
-The CLI requires no credentials, performs only HTTPS GET requests, and emits
-JSON. Formula changes are checked with Homebrew test-bot on macOS and Linux.
+The CLI requires no credentials and emits JSON. Retrieval commands use HTTPS
+GET. The insight command creates and polls a 24-hour, idempotent job using only
+published site evidence. Formula changes are checked with Homebrew test-bot.

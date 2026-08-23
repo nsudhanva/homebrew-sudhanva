@@ -1,7 +1,9 @@
 # Security policy
 
-The CLI is public, read-only, and requires no credentials. It sends requests
-only to the documented `https://sudhanva.me/api/v1` API unless a developer
+The CLI is public and requires no credentials. Retrieval commands are read-only;
+the profile-insights command creates only a temporary 24-hour record derived
+from published site evidence. It sends requests only to the documented
+`https://sudhanva.me/api/v1` API unless a developer
 explicitly sets `SUDHANVA_API_BASE` for local testing.
 
 Report suspected vulnerabilities privately through
