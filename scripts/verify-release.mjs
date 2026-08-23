@@ -10,11 +10,12 @@ const localPackage = JSON.parse(
 );
 
 const releaseUrl = formula.match(/^\s*url "([^"]+)"/m)?.[1];
-const formulaVersion = formula.match(/^\s*version "([^"]+)"/m)?.[1];
+const formulaVersion =
+	formula.match(/^\s*version "([^"]+)"/m)?.[1] ?? releaseUrl?.match(/-(\d+(?:\.\d+)+)\.tgz$/)?.[1];
 const expectedDigest = formula.match(/^\s*sha256 "([0-9a-f]{64})"/m)?.[1];
 
 assert.ok(releaseUrl, 'Formula must declare a release URL.');
-assert.ok(formulaVersion, 'Formula must declare a version.');
+assert.ok(formulaVersion, 'Formula release URL must contain a semantic version.');
 assert.ok(expectedDigest, 'Formula must declare a lowercase SHA-256 digest.');
 assert.equal(formulaVersion, localPackage.version, 'Formula and package versions must match.');
 
