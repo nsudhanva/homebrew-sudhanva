@@ -27,9 +27,10 @@ versioned archive. For a release:
 
 1. Update `VERSION` and `cli/package.json`.
 2. Publish a new immutable archive at `sudhanva.me/cli/`.
-3. Update the formula URL and SHA-256 digest. Homebrew infers the version from
+3. Publish that exact archive to npm with public access.
+4. Update the formula URL and SHA-256 digest. Homebrew infers the version from
    the URL.
-4. Run the full checks above and merge only after CI passes.
+5. Run the full checks above and merge only after CI passes.
 
 Do not include credentials, private data, generated Homebrew bottles, or
 unrelated site code in this repository.

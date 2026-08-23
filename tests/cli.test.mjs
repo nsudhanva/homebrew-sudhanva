@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
-import { mkdtemp, symlink } from 'node:fs/promises';
+import { mkdtemp, readFile, symlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -9,6 +9,17 @@ import { promisify } from 'node:util';
 import { commandUrl, parseArguments, run, VERSION } from '../cli/sudhanva.mjs';
 
 const execFileAsync = promisify(execFile);
+
+test('distribution metadata matches the CLI version and MIT license', async () => {
+	const packageMetadata = JSON.parse(
+		await readFile(new URL('../cli/package.json', import.meta.url), 'utf8'),
+	);
+	const packageLicense = await readFile(new URL('../cli/LICENSE', import.meta.url), 'utf8');
+	const repositoryLicense = await readFile(new URL('../LICENSE', import.meta.url), 'utf8');
+	assert.equal(packageMetadata.version, VERSION);
+	assert.equal(packageMetadata.license, 'MIT');
+	assert.equal(packageLicense, repositoryLicense);
+});
 
 test('CLI executes through package-manager-style symbolic links', async () => {
 	const directory = await mkdtemp(join(tmpdir(), 'sudhanva-cli-test-'));

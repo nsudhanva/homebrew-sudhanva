@@ -1,14 +1,16 @@
 {
 	"name": "@nsudhanva/sudhanva",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Dependency-free CLI for the public sudhanva.me API.",
+	"license": "MIT",
 	"type": "module",
 	"bin": {
 		"sudhanva": "sudhanva.mjs"
 	},
 	"files": [
 		"sudhanva.mjs",
-		"README.md"
+		"README.md",
+		"LICENSE"
 	],
 	"engines": {
 		"node": ">=18.0.0"

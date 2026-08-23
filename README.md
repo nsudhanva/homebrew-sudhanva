@@ -2,10 +2,16 @@
 
 [![brew test-bot](https://github.com/nsudhanva/homebrew-sudhanva/actions/workflows/tests.yml/badge.svg)](https://github.com/nsudhanva/homebrew-sudhanva/actions/workflows/tests.yml)
 
-Official source and Homebrew distribution for `sudhanva`, a dependency-free,
+Official source, npm package, and Homebrew distribution for `sudhanva`, a dependency-free,
 read-only CLI for the public [sudhanva.me API](https://sudhanva.me/docs/).
 
 ## Install
+
+```sh
+npm install --global @nsudhanva/sudhanva
+```
+
+or:
 
 ```sh
 brew install nsudhanva/sudhanva/sudhanva
@@ -52,6 +58,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the release checklist and
 ## Links
 
 - [CLI documentation](https://sudhanva.me/developers/cli/)
+- [npm package](https://www.npmjs.com/package/@nsudhanva/sudhanva)
 - [OpenAPI 3.1 contract](https://sudhanva.me/openapi.json)
 - [MCP integration](https://sudhanva.me/developers/mcp/)
-- [Versioned CLI archive](https://sudhanva.me/cli/nsudhanva-sudhanva-0.1.1.tgz)
+- [Versioned CLI archive](https://sudhanva.me/cli/nsudhanva-sudhanva-0.1.2.tgz)
+- [MIT license](LICENSE)

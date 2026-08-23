@@ -3,7 +3,13 @@
 Dependency-free command-line client for the public, read-only
 [sudhanva.me API](https://sudhanva.me/docs/).
 
-Install through the official Homebrew tap:
+Install from npm:
+
+```sh
+npm install --global @nsudhanva/sudhanva
+```
+
+Or install through the official Homebrew tap:
 
 ```sh
 brew install nsudhanva/sudhanva/sudhanva
@@ -20,3 +26,4 @@ prints structured JSON to standard output. See the
 [installation and command reference](https://sudhanva.me/developers/cli/).
 The reviewed source, tests, and formula are public in the
 [official Homebrew repository](https://github.com/nsudhanva/homebrew-sudhanva).
+The package is distributed under the [MIT license](LICENSE).

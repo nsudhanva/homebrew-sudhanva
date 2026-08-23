@@ -1,10 +1,11 @@
-# sudhanva Homebrew tap
+# sudhanva CLI source and Homebrew tap
 
-> Official source and Homebrew distribution for the public, read-only
+> Official source, npm package, and Homebrew distribution for the public, read-only
 > sudhanva.me command-line interface.
 
 ## Install
 
+- npm command: `npm install --global @nsudhanva/sudhanva`
 - Command: `brew install nsudhanva/sudhanva/sudhanva`
 - Formula: https://github.com/nsudhanva/homebrew-sudhanva/blob/main/Formula/sudhanva.rb
 - CLI source: https://github.com/nsudhanva/homebrew-sudhanva/blob/main/cli/sudhanva.mjs
@@ -13,9 +14,11 @@
 ## Contracts
 
 - CLI documentation: https://sudhanva.me/developers/cli/
+- npm package: https://www.npmjs.com/package/@nsudhanva/sudhanva
 - API documentation: https://sudhanva.me/docs/
 - OpenAPI 3.1: https://sudhanva.me/openapi.json
-- Versioned archive: https://sudhanva.me/cli/nsudhanva-sudhanva-0.1.1.tgz
+- Versioned archive: https://sudhanva.me/cli/nsudhanva-sudhanva-0.1.2.tgz
+- License: MIT
 
 The CLI requires no credentials, performs only HTTPS GET requests, and emits
 JSON. Formula changes are checked with Homebrew test-bot on macOS and Linux.
