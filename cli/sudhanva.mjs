@@ -4,7 +4,7 @@ import process from 'node:process';
 import { realpathSync } from 'node:fs';
 import { fileURLToPath, URL } from 'node:url';
 
-export const VERSION = '0.1.2';
+export const VERSION = '0.1.3';
 export const DEFAULT_API_BASE = 'https://sudhanva.me/api/v1';
 
 const HELP = `sudhanva ${VERSION}

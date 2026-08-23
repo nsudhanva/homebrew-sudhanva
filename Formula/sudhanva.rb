@@ -1,12 +1,12 @@
 class Sudhanva < Formula
   desc "CLI for the public sudhanva.me API"
   homepage "https://sudhanva.me/developers/cli/"
-  url "https://sudhanva.me/cli/nsudhanva-sudhanva-0.1.2.tgz"
-  sha256 "e718a4e87c27f48301d55729b354dca6933ee107c67d03edc8f72dd8745d9a35"
+  url "https://sudhanva.me/cli/initiable-sudhanva-0.1.3.tgz"
+  sha256 "32478629d84a7f518215f672800fbad48affce267617c140a90f06e5411110fc"
 
   livecheck do
     url :homepage
-    regex(/nsudhanva-sudhanva[._-]v?(\d+(?:\.\d+)+)\.t/i)
+    regex(/initiable-sudhanva[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
   depends_on "node"

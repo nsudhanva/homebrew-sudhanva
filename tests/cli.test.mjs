@@ -16,6 +16,7 @@ test('distribution metadata matches the CLI version and MIT license', async () =
 	);
 	const packageLicense = await readFile(new URL('../cli/LICENSE', import.meta.url), 'utf8');
 	const repositoryLicense = await readFile(new URL('../LICENSE', import.meta.url), 'utf8');
+	assert.equal(packageMetadata.name, '@initiable/sudhanva');
 	assert.equal(packageMetadata.version, VERSION);
 	assert.equal(packageMetadata.license, 'MIT');
 	assert.equal(packageLicense, repositoryLicense);

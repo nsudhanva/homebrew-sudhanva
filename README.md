@@ -8,7 +8,7 @@ read-only CLI for the public [sudhanva.me API](https://sudhanva.me/docs/).
 ## Install
 
 ```sh
-npm install --global @nsudhanva/sudhanva
+npm install --global @initiable/sudhanva
 ```
 
 or:
@@ -58,8 +58,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the release checklist and
 ## Links
 
 - [CLI documentation](https://sudhanva.me/developers/cli/)
-- [npm package](https://www.npmjs.com/package/@nsudhanva/sudhanva)
+- [npm package](https://www.npmjs.com/package/@initiable/sudhanva)
 - [OpenAPI 3.1 contract](https://sudhanva.me/openapi.json)
 - [MCP integration](https://sudhanva.me/developers/mcp/)
-- [Versioned CLI archive](https://sudhanva.me/cli/nsudhanva-sudhanva-0.1.2.tgz)
+- [Versioned CLI archive](https://sudhanva.me/cli/initiable-sudhanva-0.1.3.tgz)
 - [MIT license](LICENSE)
