@@ -2,11 +2,19 @@ name: release
 
 # Publishes cli/ to npm as `sudhanva` with npm trusted publishing (OIDC). No npm token is stored:
 # npmjs.com must list this repository and workflow file as the package's trusted publisher.
+#
+# The archive is packed once and attached to the GitHub release. A later run for the same tag,
+# such as a manual retry, downloads that attachment and publishes the same bytes, so npm, the
+# GitHub release, sudhanva.me/cli/, and the Homebrew formula all share one SHA-256.
 
 on:
   release:
     types: [published]
   workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to publish, such as v0.2.0
+        required: true
 
 permissions: {}
 
@@ -22,12 +30,15 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # upload the package archive to the GitHub release
+      contents: write # attach the package archive to the GitHub release
       id-token: write # npm trusted publishing and provenance
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
     steps:
-      - name: Check out repository
+      - name: Check out the release tag
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ github.event.release.tag_name || inputs.tag }}
           persist-credentials: false
 
       - name: Set up Node.js
@@ -45,28 +56,24 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint:package
 
-      - name: Check that the release tag matches the package version
-        if: github.event_name == 'release'
-        env:
-          TAG: ${{ github.event.release.tag_name }}
+      - name: Check that the tag matches the package version
         run: test "$TAG" = "v$(node -p 'require("./cli/package.json").version')"
 
-      - name: Pack
+      - name: Pack, or reuse the archive already attached to the release
         id: pack
-        working-directory: cli
-        run: |
-          archive="$(npm pack --silent)"
-          sha256sum "$archive" | tee "$archive.sha256"
-          echo "archive=$archive" >> "$GITHUB_OUTPUT"
-
-      - name: Attach the archive to the GitHub release
-        if: github.event_name == 'release'
         working-directory: cli
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ github.event.release.tag_name }}
-          ARCHIVE: ${{ steps.pack.outputs.archive }}
-        run: gh release upload "$TAG" "$ARCHIVE" "$ARCHIVE.sha256" --clobber --repo "$GITHUB_REPOSITORY"
+        run: |
+          archive="sudhanva-${TAG#v}.tgz"
+          if gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "$archive" --pattern "$archive.sha256"; then
+            sha256sum --check "$archive.sha256"
+          else
+            test "$(npm pack --silent)" = "$archive"
+            sha256sum "$archive" | tee "$archive.sha256"
+            gh release upload "$TAG" "$archive" "$archive.sha256" --repo "$GITHUB_REPOSITORY"
+          fi
+          echo "archive=$archive" >> "$GITHUB_OUTPUT"
 
       - name: Publish to npm
         working-directory: cli

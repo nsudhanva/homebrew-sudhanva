@@ -33,7 +33,9 @@ versioned archive. For a release:
 2. Push to `main` and wait for CI to pass.
 3. Create the GitHub release `vX.Y.Z`. The `release` workflow tests the package,
    attaches the `npm pack` archive and its SHA-256 to the release, and publishes
-   that archive to npm with provenance through trusted publishing.
+   that archive to npm with provenance through trusted publishing. To retry a
+   failed publish, run `gh workflow run release.yml -f tag=vX.Y.Z`; it reuses
+   the attached archive.
 4. Publish the same archive as a new immutable file at `sudhanva.me/cli/`.
 5. Update the formula URL and SHA-256 digest. Homebrew infers the version from
    the URL. `scripts/verify-release.mjs` checks that the archive matches the
