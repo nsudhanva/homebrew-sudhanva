@@ -3,18 +3,30 @@
 [![test](https://github.com/nsudhanva/homebrew-sudhanva/actions/workflows/test.yml/badge.svg)](https://github.com/nsudhanva/homebrew-sudhanva/actions/workflows/test.yml)
 [![brew test-bot](https://github.com/nsudhanva/homebrew-sudhanva/actions/workflows/tests.yml/badge.svg)](https://github.com/nsudhanva/homebrew-sudhanva/actions/workflows/tests.yml)
 
-Official source, npm package, and Homebrew distribution for `sudhanva`, the dependency-free
-JavaScript and TypeScript SDK and CLI for the public [sudhanva.me API](https://sudhanva.me/docs/).
-The package lives in [`cli/`](cli/); its [README](cli/README.md) documents the library.
+Official source, GitHub Packages package, and Homebrew distribution for `@nsudhanva/sudhanva`, the
+dependency-free JavaScript and TypeScript SDK and `sudhanva` CLI for the public
+[sudhanva.me API](https://sudhanva.me/docs/). The package lives in [`cli/`](cli/); its
+[README](cli/README.md) documents the library.
 
 ## Library
 
+The package is published to
+[GitHub Packages](https://github.com/nsudhanva/homebrew-sudhanva/pkgs/npm/sudhanva), which requires
+a token even for public packages. Add this to your `.npmrc` once, with `GITHUB_TOKEN` set to a
+personal access token (classic) that has the `read:packages` scope
+([GitHub's guide](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry)):
+
+```ini
+@nsudhanva:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
 ```sh
-npm install sudhanva
+npm install @nsudhanva/sudhanva
 ```
 
 ```js
-import { Client } from 'sudhanva';
+import { Client } from '@nsudhanva/sudhanva';
 
 const client = new Client();
 const { profile } = await client.profile();
@@ -25,14 +37,24 @@ The library runs on Node.js 22 and newer, Bun, Deno, browsers, and edge runtimes
 
 ## CLI
 
+The CLI needs Node.js 22 or newer. Install it without a token from the site-hosted archive:
+
 ```sh
-npm install --global sudhanva
+mkdir -p "$HOME/.local/lib/sudhanva" "$HOME/.local/bin"
+curl -fsSL https://sudhanva.me/cli/sudhanva-0.2.0.tgz | tar -xz -C "$HOME/.local/lib/sudhanva" --strip-components=1
+ln -sf "$HOME/.local/lib/sudhanva/sudhanva.mjs" "$HOME/.local/bin/sudhanva"
 ```
 
-or:
+with Homebrew:
 
 ```sh
 brew install nsudhanva/sudhanva/sudhanva
+```
+
+or from GitHub Packages, with the `.npmrc` above:
+
+```sh
+npm install --global @nsudhanva/sudhanva
 ```
 
 Homebrew installs Node.js when needed. The CLI requires no account or API key,
@@ -80,7 +102,7 @@ brew test nsudhanva/sudhanva/sudhanva
 The formula downloads a versioned archive and verifies its SHA-256 digest.
 CI runs the tests on Node.js 22.0.0, 22, 24, and 26, the library tests on Bun and Deno, and
 Homebrew's official `brew test-bot` workflow on macOS and Linux. Publishing a GitHub release runs
-[`release.yml`](.github/workflows/release.yml), which publishes to npm through trusted publishing.
+[`release.yml`](.github/workflows/release.yml), which publishes the package to GitHub Packages.
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the release checklist and
 [SECURITY.md](SECURITY.md) for private security reporting.
 
@@ -89,10 +111,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the release checklist and
 - [SDK documentation](https://sudhanva.me/developers/sdks/)
 - [CLI documentation](https://sudhanva.me/developers/cli/)
 - [Versioning policy](https://sudhanva.me/developers/versioning/)
-- [npm package](https://www.npmjs.com/package/sudhanva)
+- [GitHub Packages package](https://github.com/nsudhanva/homebrew-sudhanva/pkgs/npm/sudhanva)
 - [OpenAPI 3.1 contract](https://sudhanva.me/openapi.json)
 - [MCP integration](https://sudhanva.me/developers/mcp/)
 - [Profile-insights API](https://sudhanva.me/docs/profile-insights/)
-- [Versioned CLI archive](https://sudhanva.me/cli/sudhanva-0.1.5.tgz)
+- [Versioned CLI archive](https://sudhanva.me/cli/sudhanva-0.2.0.tgz)
 - [Changelog](CHANGELOG.md)
 - [MIT license](LICENSE)

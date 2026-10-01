@@ -2,10 +2,10 @@
 
 ## 0.2.0
 
-The `sudhanva` npm package is now the official JavaScript and TypeScript SDK for the public
-sudhanva.me API, and it still installs the `sudhanva` CLI.
+`@nsudhanva/sudhanva` on GitHub Packages is the official JavaScript and TypeScript SDK for the
+public sudhanva.me API, and it installs the `sudhanva` CLI.
 
-- `import { Client } from 'sudhanva'` gives `profile`, `posts`, `allPosts`, `post`, `batch`, `ask`,
+- `import { Client } from '@nsudhanva/sudhanva'` gives `profile`, `posts`, `allPosts`, `post`, `batch`, `ask`,
   `createProfileInsight`, `profileInsight`, `waitForProfileInsight`, and `apiIndex`, with the
   same names and behavior as the Python, Go, Ruby, and Rust SDKs.
 - `ApiError` decodes both the JSON error envelope and `application/problem+json` documents, and
@@ -17,7 +17,7 @@ sudhanva.me API, and it still installs the `sudhanva` CLI.
   Requests send `User-Agent: sudhanva-js/0.2.0 sudhanva-cli/0.2.0`.
 - The CLI and package now require Node.js 22 or newer, because Node.js 18 and 20 are past
   end of life.
-- Releases are published to npm from GitHub Actions with trusted publishing and provenance.
+- Releases are published to GitHub Packages from GitHub Actions.
 
 ## 0.1.5
 

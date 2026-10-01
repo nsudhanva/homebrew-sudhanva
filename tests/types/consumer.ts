@@ -14,7 +14,7 @@ import {
 	type PostList,
 	type ProfileInsightJob,
 	type ProfileResponse,
-} from 'sudhanva';
+} from '@nsudhanva/sudhanva';
 
 const version: string = VERSION;
 const base: string = DEFAULT_BASE_URL;

@@ -57,7 +57,7 @@ await writeFile(join(directory, 'release.tgz'), archive);
 await promisify(execFile)('tar', ['-xzf', 'release.tgz'], { cwd: directory });
 const packaged = (path) => readFile(join(directory, 'package', path), 'utf8');
 const archivedPackage = JSON.parse(await packaged('package.json'));
-assert.equal(archivedPackage.name, 'sudhanva');
+assert.equal(archivedPackage.name, '@nsudhanva/sudhanva');
 assert.equal(archivedPackage.version, formulaVersion, 'Archive and formula versions differ.');
 
 if (order === 0) {

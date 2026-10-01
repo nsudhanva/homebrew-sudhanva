@@ -1,11 +1,11 @@
 name: release
 
-# Publishes cli/ to npm as `sudhanva` with npm trusted publishing (OIDC). No npm token is stored:
-# npmjs.com must list this repository and workflow file as the package's trusted publisher.
+# Publishes cli/ to GitHub Packages as `@nsudhanva/sudhanva` with the workflow's GITHUB_TOKEN.
+# No other credential is stored.
 #
 # The archive is packed once and attached to the GitHub release. A later run for the same tag,
-# such as a manual retry, downloads that attachment and publishes the same bytes, so npm, the
-# GitHub release, sudhanva.me/cli/, and the Homebrew formula all share one SHA-256.
+# such as a manual retry, downloads that attachment and publishes the same bytes, so GitHub
+# Packages, the GitHub release, sudhanva.me/cli/, and the Homebrew formula share one SHA-256.
 
 on:
   release:
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write # attach the package archive to the GitHub release
-      id-token: write # npm trusted publishing and provenance
+      packages: write # publish to GitHub Packages
     env:
       TAG: ${{ github.event.release.tag_name || inputs.tag }}
     steps:
@@ -45,11 +45,8 @@ jobs:
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
-          registry-url: https://registry.npmjs.org
-
-      # Trusted publishing needs npm 11.5.1 or newer.
-      - run: npm install --global npm@11
-      - run: npm --version
+          registry-url: https://npm.pkg.github.com
+          scope: '@nsudhanva'
 
       - run: npm ci --ignore-scripts
       - run: npm test
@@ -69,14 +66,16 @@ jobs:
           if gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "$archive" --pattern "$archive.sha256"; then
             sha256sum --check "$archive.sha256"
           else
-            test "$(npm pack --silent)" = "$archive"
+            # npm names a scoped package's archive nsudhanva-sudhanva-<version>.tgz.
+            mv "$(npm pack --silent)" "$archive"
             sha256sum "$archive" | tee "$archive.sha256"
             gh release upload "$TAG" "$archive" "$archive.sha256" --repo "$GITHUB_REPOSITORY"
           fi
           echo "archive=$archive" >> "$GITHUB_OUTPUT"
 
-      - name: Publish to npm
+      - name: Publish to GitHub Packages
         working-directory: cli
         env:
           ARCHIVE: ${{ steps.pack.outputs.archive }}
-        run: npm publish "./$ARCHIVE" --provenance --access public
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm publish "./$ARCHIVE"

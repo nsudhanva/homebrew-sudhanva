@@ -1,5 +1,5 @@
 {
-	"name": "sudhanva",
+	"name": "@nsudhanva/sudhanva",
 	"version": "0.2.0",
 	"description": "Official JavaScript and TypeScript SDK and CLI for the public sudhanva.me API.",
 	"license": "MIT",
@@ -39,6 +39,7 @@
 		"url": "https://github.com/nsudhanva/homebrew-sudhanva/issues"
 	},
 	"publishConfig": {
+		"registry": "https://npm.pkg.github.com",
 		"access": "public"
 	},
 	"keywords": [

@@ -9,8 +9,22 @@ The API is public and requires no credentials. Do not send private data.
 
 ## Install
 
+The package is `@nsudhanva/sudhanva` on
+[GitHub Packages](https://github.com/nsudhanva/homebrew-sudhanva/pkgs/npm/sudhanva). GitHub Packages
+requires a token even for public packages, so point the `@nsudhanva` scope at it once, in your
+project's or your home directory's `.npmrc`:
+
+```ini
+@nsudhanva:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+`GITHUB_TOKEN` must hold a GitHub personal access token (classic) with the `read:packages` scope. See
+[Working with the npm registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry).
+Then install:
+
 ```sh
-npm install sudhanva
+npm install @nsudhanva/sudhanva
 ```
 
 The package has no runtime dependencies. It ships ES modules with TypeScript types.
@@ -18,7 +32,7 @@ The package has no runtime dependencies. It ships ES modules with TypeScript typ
 ## Use
 
 ```js
-import { Client } from 'sudhanva';
+import { Client } from '@nsudhanva/sudhanva';
 
 const client = new Client();
 
@@ -49,7 +63,7 @@ problem document, `type`, `title`, `detail`, and `instance` are set too, and `co
 `type` URL fragment (`#invalid-profile-insight` becomes `INVALID_PROFILE_INSIGHT`).
 
 ```js
-import { ApiError } from 'sudhanva';
+import { ApiError } from '@nsudhanva/sudhanva';
 
 try {
 	await client.post('missing');
@@ -116,21 +130,30 @@ runs in:
 - Bun and Deno. CI runs the library test suite on both.
 - Browsers, web workers, and edge runtimes such as Cloudflare Workers.
 
-The package is ESM only. On Node.js 22.12 and newer, CommonJS code can `require('sudhanva')`;
-older releases need `await import('sudhanva')`.
+The package is ESM only. On Node.js 22.12 and newer, CommonJS code can
+`require('@nsudhanva/sudhanva')`; older releases need `await import('@nsudhanva/sudhanva')`.
 
 ## CLI
 
-The same package installs the `sudhanva` command. It needs Node.js 22 or newer.
+The same package installs the `sudhanva` command. It needs Node.js 22 or newer. Install it
+without a token from the site-hosted archive:
 
 ```sh
-npm install --global sudhanva
+mkdir -p "$HOME/.local/lib/sudhanva" "$HOME/.local/bin"
+curl -fsSL https://sudhanva.me/cli/sudhanva-0.2.0.tgz | tar -xz -C "$HOME/.local/lib/sudhanva" --strip-components=1
+ln -sf "$HOME/.local/lib/sudhanva/sudhanva.mjs" "$HOME/.local/bin/sudhanva"
 ```
 
-Or install through the official Homebrew tap:
+through the official Homebrew tap:
 
 ```sh
 brew install nsudhanva/sudhanva/sudhanva
+```
+
+or from GitHub Packages, with the `.npmrc` above:
+
+```sh
+npm install --global @nsudhanva/sudhanva
 ```
 
 ```sh

@@ -1,13 +1,15 @@
 # sudhanva JavaScript SDK, CLI, and Homebrew tap
 
-> Official source, npm package, and Homebrew distribution for the sudhanva.me
+> Official source, GitHub Packages package, and Homebrew distribution for the sudhanva.me
 > JavaScript and TypeScript SDK and command-line interface.
 
 ## Install
 
-- Library: `npm install sudhanva`, then `import { Client } from 'sudhanva'`
-- npm command: `npm install --global sudhanva`
+- Library: `npm install @nsudhanva/sudhanva` from GitHub Packages, then `import { Client } from '@nsudhanva/sudhanva'`
+- GitHub Packages needs `.npmrc` lines `@nsudhanva:registry=https://npm.pkg.github.com` and `//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}`, with a token that has `read:packages`
+- Command without a token: https://sudhanva.me/developers/cli/ (site-hosted archive)
 - Command: `brew install nsudhanva/sudhanva/sudhanva`
+- Command from GitHub Packages: `npm install --global @nsudhanva/sudhanva`
 - Formula: https://github.com/nsudhanva/homebrew-sudhanva/blob/main/Formula/sudhanva.rb
 - Library source: https://github.com/nsudhanva/homebrew-sudhanva/blob/main/cli/index.js
 - Library types: https://github.com/nsudhanva/homebrew-sudhanva/blob/main/cli/index.d.ts
@@ -19,11 +21,11 @@
 - SDK documentation: https://sudhanva.me/developers/sdks/
 - CLI documentation: https://sudhanva.me/developers/cli/
 - Versioning policy: https://sudhanva.me/developers/versioning/
-- npm package: https://www.npmjs.com/package/sudhanva
+- GitHub Packages package: https://github.com/nsudhanva/homebrew-sudhanva/pkgs/npm/sudhanva
 - API documentation: https://sudhanva.me/docs/
 - OpenAPI 3.1: https://sudhanva.me/openapi.json
 - Profile-insights API: https://sudhanva.me/docs/profile-insights/
-- Versioned archive: https://sudhanva.me/cli/sudhanva-0.1.5.tgz
+- Versioned archive: https://sudhanva.me/cli/sudhanva-0.2.0.tgz
 - License: MIT
 
 The library and CLI require no credentials and return JSON. Retrieval commands use HTTPS
