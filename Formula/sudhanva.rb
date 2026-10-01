@@ -1,8 +1,9 @@
 class Sudhanva < Formula
   desc "CLI for public sudhanva.me data and profile insights"
   homepage "https://sudhanva.me/developers/cli/"
-  url "https://sudhanva.me/cli/sudhanva-0.1.5.tgz"
-  sha256 "ceb14e6ef3a9c641e06f276bd34730891487addf2f474df74c82db85181903d4"
+  url "https://sudhanva.me/cli/sudhanva-0.2.0.tgz"
+  sha256 "f14a1db22145edf971b61e9b776487a3019e38935a759cae26846c68ca0243de"
+  license "MIT"
 
   livecheck do
     url :homepage
@@ -12,7 +13,8 @@ class Sudhanva < Formula
   depends_on "node"
 
   def install
-    bin.install "sudhanva.mjs" => "sudhanva"
+    libexec.install Dir["*"]
+    bin.install_symlink libexec/"sudhanva.mjs" => "sudhanva"
   end
 
   test do
