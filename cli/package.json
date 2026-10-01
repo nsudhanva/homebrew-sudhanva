@@ -1,26 +1,40 @@
 {
 	"name": "sudhanva",
-	"version": "0.1.5",
-	"description": "Dependency-free CLI for public sudhanva.me data and profile insights.",
+	"version": "0.2.0",
+	"description": "Official JavaScript and TypeScript SDK and CLI for the public sudhanva.me API.",
 	"license": "MIT",
+	"author": "Sudhanva Narayana <nsudhanva@gmail.com> (https://sudhanva.me/)",
 	"type": "module",
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"import": "./index.js",
+			"default": "./index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"main": "./index.js",
+	"types": "./index.d.ts",
 	"bin": {
 		"sudhanva": "sudhanva.mjs"
 	},
 	"files": [
+		"index.js",
+		"index.d.ts",
 		"sudhanva.mjs",
 		"README.md",
 		"LICENSE"
 	],
+	"sideEffects": false,
 	"engines": {
-		"node": ">=18.0.0"
+		"node": ">=22"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/nsudhanva/homebrew-sudhanva.git",
 		"directory": "cli"
 	},
-	"homepage": "https://sudhanva.me/developers/cli/",
+	"homepage": "https://sudhanva.me/developers/sdks/",
 	"bugs": {
 		"url": "https://github.com/nsudhanva/homebrew-sudhanva/issues"
 	},
@@ -29,9 +43,13 @@
 	},
 	"keywords": [
 		"sudhanva",
-		"portfolio",
-		"machine-learning",
+		"sdk",
 		"api",
-		"cli"
+		"client",
+		"cli",
+		"nlweb",
+		"typescript",
+		"portfolio",
+		"machine-learning"
 	]
 }

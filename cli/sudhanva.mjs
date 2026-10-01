@@ -6,8 +6,10 @@ import { realpathSync } from 'node:fs';
 import { setTimeout as delay } from 'node:timers/promises';
 import { fileURLToPath, URL } from 'node:url';
 
-export const VERSION = '0.1.5';
-export const DEFAULT_API_BASE = 'https://sudhanva.me/api/v1';
+import { ApiError, Client, DEFAULT_BASE_URL, VERSION } from './index.js';
+
+export { VERSION };
+export const DEFAULT_API_BASE = DEFAULT_BASE_URL;
 
 const HELP = `sudhanva ${VERSION}
 
@@ -150,6 +152,43 @@ export function commandUrl(options, apiBase = DEFAULT_API_BASE) {
 	return url;
 }
 
+function apiFailure(error) {
+	if (!(error instanceof ApiError)) return error;
+	if (error.body === null || typeof error.body === 'string') {
+		return new Error(`The API returned non-JSON content with HTTP ${error.status}.`);
+	}
+	const body = error.body;
+	const detail = body?.error?.message ?? body?.detail ?? `HTTP ${error.status}`;
+	return new Error(`sudhanva.me API error: ${detail}`);
+}
+
+async function execute(client, options, retryAfter, sleep) {
+	const { locale } = options;
+	if (options.command === 'api') return client.apiIndex({ locale });
+	if (options.command === 'profile') return client.profile({ locale });
+	if (options.command === 'post') return client.post(options.slug, { locale });
+	if (options.command === 'posts') {
+		const limit = options.limit ? Number.parseInt(options.limit, 10) : undefined;
+		return client.posts({ limit, tag: options.tag, cursor: options.cursor, locale });
+	}
+
+	let job = await client.createProfileInsight(
+		{ audience: options.audience, ...(options.focus ? { focus: options.focus } : {}) },
+		options['idempotency-key'] ?? `cli-${randomUUID()}`,
+	);
+	if (!options.wait) return job;
+	for (let attempt = 0; !['succeeded', 'failed'].includes(job.status); attempt += 1) {
+		if (attempt >= 30) fail('The insight job did not finish within the polling limit.');
+		const seconds = Number.parseInt(retryAfter() ?? '1', 10);
+		await sleep(Number.isFinite(seconds) ? Math.max(seconds, 1) * 1000 : 1000);
+		job = await client.profileInsight(job.job_id);
+	}
+	if (job.status === 'failed') {
+		fail(`Profile insight failed: ${job.error?.message ?? job.error?.detail ?? 'unknown error'}`);
+	}
+	return job;
+}
+
 export async function run(
 	argv,
 	{
@@ -169,59 +208,25 @@ export async function run(
 		return 0;
 	}
 
-	const url = commandUrl(options, apiBase);
-	const requestOptions = {
-		headers: {
-			Accept: 'application/json',
-			'User-Agent': `sudhanva-cli/${VERSION}`,
+	// Keep the latest Retry-After so polling honours the server's hint.
+	let lastRetryAfter;
+	const client = new Client({
+		baseUrl: apiBase,
+		userAgent: `sudhanva-cli/${VERSION}`,
+		timeout: 30_000,
+		fetch: async (url, init) => {
+			const response = await fetchImpl(url, init);
+			lastRetryAfter = response.headers?.get?.('Retry-After') ?? undefined;
+			return response;
 		},
-	};
-	if (options.command === 'insight') {
-		requestOptions.method = 'POST';
-		requestOptions.headers['Content-Type'] = 'application/json';
-		requestOptions.headers['Idempotency-Key'] = options['idempotency-key'] ?? `cli-${randomUUID()}`;
-		requestOptions.body = JSON.stringify({
-			audience: options.audience,
-			...(options.focus ? { focus: options.focus } : {}),
-		});
-	}
-	let response = await fetchImpl(url, requestOptions);
-	let text = await response.text();
+	});
+
 	let payload;
 	try {
-		payload = JSON.parse(text);
-	} catch {
-		fail(`The API returned non-JSON content with HTTP ${response.status}.`);
+		payload = await execute(client, options, () => lastRetryAfter, sleep);
+	} catch (error) {
+		throw apiFailure(error);
 	}
-	if (!response.ok) {
-		const detail = payload?.error?.message ?? payload?.detail ?? `HTTP ${response.status}`;
-		fail(`sudhanva.me API error: ${detail}`);
-	}
-
-	if (options.command === 'insight' && options.wait) {
-		for (let attempt = 0; !['succeeded', 'failed'].includes(payload.status); attempt += 1) {
-			if (attempt >= 30) fail('The insight job did not finish within the polling limit.');
-			const seconds = Number.parseInt(response.headers.get('Retry-After') ?? '1', 10);
-			await sleep(Number.isFinite(seconds) ? Math.max(seconds, 1) * 1000 : 1000);
-			response = await fetchImpl(payload.status_url, {
-				headers: requestOptions.headers,
-			});
-			text = await response.text();
-			try {
-				payload = JSON.parse(text);
-			} catch {
-				fail(`The API returned non-JSON content with HTTP ${response.status}.`);
-			}
-			if (!response.ok) {
-				fail(
-					`sudhanva.me API error: ${payload?.error?.message ?? payload?.detail ?? `HTTP ${response.status}`}`,
-				);
-			}
-		}
-		if (payload.status === 'failed')
-			fail(`Profile insight failed: ${payload.error?.detail ?? 'unknown error'}`);
-	}
-
 	stdout(`${JSON.stringify(payload, null, options.compact ? 0 : 2)}\n`);
 	return 0;
 }

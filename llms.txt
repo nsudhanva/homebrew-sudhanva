@@ -1,19 +1,24 @@
-# sudhanva CLI source and Homebrew tap
+# sudhanva JavaScript SDK, CLI, and Homebrew tap
 
-> Official source, npm package, and Homebrew distribution for the public
-> sudhanva.me command-line interface.
+> Official source, npm package, and Homebrew distribution for the sudhanva.me
+> JavaScript and TypeScript SDK and command-line interface.
 
 ## Install
 
+- Library: `npm install sudhanva`, then `import { Client } from 'sudhanva'`
 - npm command: `npm install --global sudhanva`
 - Command: `brew install nsudhanva/sudhanva/sudhanva`
 - Formula: https://github.com/nsudhanva/homebrew-sudhanva/blob/main/Formula/sudhanva.rb
+- Library source: https://github.com/nsudhanva/homebrew-sudhanva/blob/main/cli/index.js
+- Library types: https://github.com/nsudhanva/homebrew-sudhanva/blob/main/cli/index.d.ts
 - CLI source: https://github.com/nsudhanva/homebrew-sudhanva/blob/main/cli/sudhanva.mjs
 - Release verification: https://github.com/nsudhanva/homebrew-sudhanva/blob/main/scripts/verify-release.mjs
 
 ## Contracts
 
+- SDK documentation: https://sudhanva.me/developers/sdks/
 - CLI documentation: https://sudhanva.me/developers/cli/
+- Versioning policy: https://sudhanva.me/developers/versioning/
 - npm package: https://www.npmjs.com/package/sudhanva
 - API documentation: https://sudhanva.me/docs/
 - OpenAPI 3.1: https://sudhanva.me/openapi.json
@@ -21,6 +26,6 @@
 - Versioned archive: https://sudhanva.me/cli/sudhanva-0.1.5.tgz
 - License: MIT
 
-The CLI requires no credentials and emits JSON. Retrieval commands use HTTPS
+The library and CLI require no credentials and return JSON. Retrieval commands use HTTPS
 GET. The insight command creates and polls a 24-hour, idempotent job using only
 published site evidence. Formula changes are checked with Homebrew test-bot.

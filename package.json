@@ -1,0 +1,21 @@
+{
+	"name": "homebrew-sudhanva-dev",
+	"private": true,
+	"description": "Development tooling for the sudhanva npm package (cli/) and Homebrew formula. Not published.",
+	"license": "MIT",
+	"type": "module",
+	"scripts": {
+		"test": "node --test tests/*.test.mjs",
+		"typecheck": "tsc -p tests/types/tsconfig.json",
+		"lint:package": "publint run cli --strict && attw --pack cli --profile esm-only",
+		"smoke": "node scripts/live-smoke.mjs",
+		"verify-release": "node scripts/verify-release.mjs",
+		"check": "npm test && npm run typecheck && npm run lint:package"
+	},
+	"devDependencies": {
+		"@arethetypeswrong/cli": "0.18.5",
+		"publint": "0.3.25",
+		"sudhanva": "file:./cli",
+		"typescript": "7.0.2"
+	}
+}
