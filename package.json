@@ -1,7 +1,7 @@
 {
 	"name": "homebrew-sudhanva-dev",
 	"private": true,
-	"description": "Development tooling for the @nsudhanva/sudhanva package (cli/) and Homebrew formula. Not published.",
+	"description": "Development tools for the @nsudhanva/sudhanva package (cli/) and the Homebrew formula. This package is not published.",
 	"license": "MIT",
 	"type": "module",
 	"scripts": {

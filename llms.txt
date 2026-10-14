@@ -1,13 +1,13 @@
 # sudhanva JavaScript SDK, CLI, and Homebrew tap
 
-> Official source, GitHub Packages package, and Homebrew distribution for the sudhanva.me
+> The official source, GitHub Packages package, and Homebrew tap for the sudhanva.me
 > JavaScript and TypeScript SDK and command-line interface.
 
 ## Install
 
 - Library: `npm install @nsudhanva/sudhanva` from GitHub Packages, then `import { Client } from '@nsudhanva/sudhanva'`
 - GitHub Packages needs `.npmrc` lines `@nsudhanva:registry=https://npm.pkg.github.com` and `//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}`, with a token that has `read:packages`
-- Command without a token: https://sudhanva.me/developers/cli/ (site-hosted archive)
+- Command without a token: https://sudhanva.me/developers/cli/ (archive on the site)
 - Command: `brew install nsudhanva/sudhanva/sudhanva`
 - Command from GitHub Packages: `npm install --global @nsudhanva/sudhanva`
 - Formula: https://github.com/nsudhanva/homebrew-sudhanva/blob/main/Formula/sudhanva.rb
@@ -28,6 +28,6 @@
 - Versioned archive: https://sudhanva.me/cli/sudhanva-0.2.0.tgz
 - License: MIT
 
-The library and CLI require no credentials and return JSON. Retrieval commands use HTTPS
-GET. The insight command creates and polls a 24-hour, idempotent job using only
-published site evidence. Formula changes are checked with Homebrew test-bot.
+The library and the CLI do not need credentials. They return JSON. Retrieval commands use
+HTTPS GET. The insight command creates and polls an idempotent job that lasts 24 hours. The
+job uses only published site evidence. Homebrew test-bot checks changes to the formula.

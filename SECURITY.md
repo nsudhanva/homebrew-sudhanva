@@ -1,15 +1,15 @@
 # Security policy
 
-The CLI is public and requires no credentials. Retrieval commands are read-only;
-the profile-insights command creates only a temporary 24-hour record derived
-from published site evidence. It sends requests only to the documented
-`https://sudhanva.me/api/v1` API unless a developer
-explicitly sets `SUDHANVA_API_BASE` for local testing.
+The CLI is public. It does not need credentials. Retrieval commands are read-only. The
+profile-insights command creates only a temporary record that lasts 24 hours. This record uses
+only published site evidence.
 
-Report suspected vulnerabilities privately through
+The CLI sends requests only to the documented `https://sudhanva.me/api/v1` API. The only exception
+is when a developer sets `SUDHANVA_API_BASE` for local tests.
+
+Do not open a public issue for a vulnerability that is not fixed. Do not put secrets, tokens, or
+personal data in a report. Report a possible vulnerability privately through
 [GitHub Security Advisories](https://github.com/nsudhanva/homebrew-sudhanva/security/advisories/new).
-Do not open a public issue for an unpatched vulnerability or include secrets,
-tokens, or personal data in a report.
 
-Supported security fixes target the latest published CLI version. Package
-integrity is enforced by the SHA-256 digest in `Formula/sudhanva.rb`.
+Security fixes go into the latest published CLI version. The SHA-256 digest in
+`Formula/sudhanva.rb` protects the integrity of the package.
